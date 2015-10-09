@@ -2,8 +2,11 @@ package it.jaschke.alexandria.services;
 
 import android.app.IntentService;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -61,7 +64,7 @@ public class BookService extends IntentService {
      * parameters.
      */
     private void deleteBook(String ean) {
-        if(ean!=null) {
+        if(ean!=null && !ean.equals("")) {
             getContentResolver().delete(AlexandriaContract.BookEntry.buildBookUri(Long.parseLong(ean)), null, null);
         }
     }
@@ -90,6 +93,26 @@ public class BookService extends IntentService {
         }
 
         bookEntry.close();
+
+        //--// Check for connection and handle gracefully if not connected
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = (
+                activeNetworkInfo != null
+                && activeNetworkInfo.isConnectedOrConnecting()
+        );
+
+        if (!isConnected) {
+            Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
+            messageIntent.putExtra(MainActivity.MESSAGE_KEY,getResources().getString(R.string.no_connection));
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
+            return;
+        }
+        //--//
+
+        Log.d(LOG_TAG, "fetching book from API");
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -195,6 +218,7 @@ public class BookService extends IntentService {
             if(bookInfo.has(CATEGORIES)){
                 writeBackCategories(ean,bookInfo.getJSONArray(CATEGORIES) );
             }
+
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Error ", e);
