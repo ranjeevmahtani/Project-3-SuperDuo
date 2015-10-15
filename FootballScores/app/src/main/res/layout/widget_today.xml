@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green13"
+    android:padding="@dimen/widget_margin"
+    android:id="@+id/widget_today_parent_layout">
+
+    <TextView
+        android:id="@+id/widget_header"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="@string/widget_today_header"
+        android:textColor="@color/abc_primary_text_material_light"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/widget_today_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/widget_today_list_item"/>
+
+        <TextView
+            android:id="@+id/widget_today_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_matches_to_display"
+            android:textColor="@color/abc_primary_text_material_light"/>
+    </FrameLayout>
+
+</LinearLayout>
