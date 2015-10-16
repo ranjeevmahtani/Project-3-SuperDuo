@@ -36,8 +36,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     private static final String SCAN_FORMAT = "scanFormat";
     private static final String SCAN_CONTENTS = "scanContents";
 
-    private String mScanFormat = "Format:";
-    private String mScanContents = "Contents:";
+//    private String mScanFormat = "Format:";
+//    private String mScanContents = "Contents:";
 
     public AddBook(){
     }
