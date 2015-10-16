@@ -18,7 +18,7 @@ public class ScoresProvider extends ContentProvider
     private static final int MATCHES_WITH_LEAGUE = 101;
     private static final int MATCHES_WITH_ID = 102;
     private static final int MATCHES_WITH_DATE = 103;
-    private UriMatcher muriMatcher = buildUriMatcher();
+    private UriMatcher mUriMatcher = buildUriMatcher();
     private static final SQLiteQueryBuilder ScoreQuery =
             new SQLiteQueryBuilder();
     private static final String SCORES_BY_LEAGUE = DatabaseContract.scores_table.LEAGUE_COL + " = ?";
@@ -77,7 +77,7 @@ public class ScoresProvider extends ContentProvider
     @Override
     public String getType(Uri uri)
     {
-        final int match = muriMatcher.match(uri);
+        final int match = mUriMatcher.match(uri);
         switch (match) {
             case MATCHES:
                 return DatabaseContract.scores_table.CONTENT_TYPE;
@@ -118,7 +118,7 @@ public class ScoresProvider extends ContentProvider
             case MATCHES_WITH_LEAGUE: retCursor = mOpenHelper.getReadableDatabase().query(
                     DatabaseContract.SCORES_TABLE,
                     projection,SCORES_BY_LEAGUE,selectionArgs,null,null,sortOrder); break;
-            default: throw new UnsupportedOperationException("Unknown Uri" + uri);
+            default: throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
         retCursor.setNotificationUri(getContext().getContentResolver(),uri);
         return retCursor;
@@ -135,7 +135,7 @@ public class ScoresProvider extends ContentProvider
     {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         //db.delete(DatabaseContract.SCORES_TABLE,null,null);
-        //Log.v(FetchScoreTask.LOG_TAG,String.valueOf(muriMatcher.match(uri)));
+        //Log.v(FetchScoreTask.LOG_TAG,String.valueOf(mUriMatcher.match(uri)));
         switch (match_uri(uri))
         {
             case MATCHES:

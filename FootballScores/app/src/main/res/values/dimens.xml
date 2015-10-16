@@ -8,4 +8,6 @@
     <dimen name="Score">30sp</dimen>
     <dimen name="League">15sp</dimen>
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_date_text_size">12sp</dimen>
+    <dimen name="widget_matchtime_text_size">14sp</dimen>
 </resources>

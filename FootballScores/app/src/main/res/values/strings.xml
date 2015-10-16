@@ -32,7 +32,7 @@
         During the off season, fake data will be added to the app.
     </string>
     <string name="widget_text">This is a widget probably.</string>
-    <string name="widget_today_header">Today\'s Matches</string>
+    <string name="widget_header">@string/app_name</string>
     <string name="no_matches_to_display">No matches to display</string>
     <string name="api_key" translatable="false">30464f0b37304ea39244d5d0aeb9cfe2</string>
 

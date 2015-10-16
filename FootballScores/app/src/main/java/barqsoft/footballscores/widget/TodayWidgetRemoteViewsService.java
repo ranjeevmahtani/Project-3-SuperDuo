@@ -9,9 +9,6 @@ import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilies;
@@ -79,13 +76,14 @@ public class TodayWidgetRemoteViewsService extends RemoteViewsService {
                 }
 
                 RemoteViews views = new RemoteViews(getPackageName(),
-                        R.layout.widget_today_list_item);
+                        R.layout.widget_list_item);
 
                 String homeName = data.getString(COL_HOME);
                 String awayName = data.getString(COL_AWAY);
                 int homeGoals = data.getInt(COL_HOME_GOALS);
                 int awayGoals = data.getInt(COL_AWAY_GOALS);
                 String matchTime = data.getString(COL_MATCHTIME);
+                String date = data.getString(COL_DATE);
 
                 views.setTextViewText(R.id.home_name, homeName);
                 views.setImageViewResource(R.id.home_crest, Utilies.getTeamCrestByTeamName(
@@ -93,6 +91,7 @@ public class TodayWidgetRemoteViewsService extends RemoteViewsService {
                 views.setTextViewText(R.id.away_name, awayName);
                 views.setImageViewResource(R.id.away_crest, Utilies.getTeamCrestByTeamName(
                         data.getString(COL_AWAY)));
+                views.setTextViewText(R.id.widget_date_textview, date);
                 views.setTextViewText(R.id.score_textview, Utilies.getScores(homeGoals, awayGoals));
                 views.setTextViewText(R.id.data_textview, matchTime);
 
@@ -101,7 +100,7 @@ public class TodayWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public RemoteViews getLoadingView() {
-                return new RemoteViews(getPackageName(), R.layout.widget_today_list_item);
+                return new RemoteViews(getPackageName(), R.layout.widget_list_item);
             }
 
             @Override
@@ -123,14 +122,12 @@ public class TodayWidgetRemoteViewsService extends RemoteViewsService {
 
             private void updateScores() {
                 final long identityToken = Binder.clearCallingIdentity();
-                SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-                String[] dateStrArray = {mformat.format(new Date(System.currentTimeMillis()))};
 
-                data = getContentResolver().query(DatabaseContract.scores_table.buildScoreWithDate(),
+                data = getContentResolver().query(DatabaseContract.BASE_CONTENT_URI,
                         null,
-                        DatabaseContract.scores_table.DATE_COL + "=?",
-                        dateStrArray,
-                        null);
+                        null,
+                        null,
+                        DatabaseContract.scores_table.DATE_COL + " ASC");
 
 //                data.moveToFirst();
 //                String matchtime = data.getString(COL_MATCHTIME);

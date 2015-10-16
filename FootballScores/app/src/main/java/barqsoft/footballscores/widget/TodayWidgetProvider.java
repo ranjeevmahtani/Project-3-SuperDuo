@@ -22,11 +22,11 @@ public class TodayWidgetProvider extends AppWidgetProvider{
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_today);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
             Intent appLaunchIntent = new Intent(context, MainActivity.class);
             PendingIntent appLaunchPendingIntent = PendingIntent.getActivity(context,0,appLaunchIntent,0);
-            views.setOnClickPendingIntent(R.id.widget_today_parent_layout, appLaunchPendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_parent_layout, appLaunchPendingIntent);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 setRemoteAdapter(context,views);
@@ -34,7 +34,7 @@ public class TodayWidgetProvider extends AppWidgetProvider{
                 setRemoteAdapterV11(context, views);
             }
 
-            views.setEmptyView(R.id.widget_today_list, R.id.widget_today_empty_view);
+            views.setEmptyView(R.id.widget_today_list, R.id.widget_empty_view);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
