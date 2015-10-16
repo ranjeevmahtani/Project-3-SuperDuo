@@ -39,7 +39,7 @@
     <string name="contentDescription_share">Share</string>
 
     <!-- API related Strings -->
-    <string name="api_key" translatable="false">30464f0b37304ea39244d5d0aeb9cfe2</string>
+    <string name="api_key" translatable="false"></string>
     <string name="api_base_url" translatable="false">http://api.football-data.org/alpha/fixtures</string>
     <string name="api_query_timeframe" translatable="false">timeFrame</string>
     <string name="api_fixtures_JSON_object_name" translatable="false">fixtures</string>
