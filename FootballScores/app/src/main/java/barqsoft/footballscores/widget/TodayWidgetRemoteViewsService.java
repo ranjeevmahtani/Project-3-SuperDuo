@@ -128,7 +128,7 @@ public class TodayWidgetRemoteViewsService extends RemoteViewsService {
 
                 data = getContentResolver().query(DatabaseContract.scores_table.buildScoreWithDate(),
                         null,
-                        DatabaseContract.scores_table.TIME_COL + "=?",
+                        DatabaseContract.scores_table.DATE_COL + "=?",
                         dateStrArray,
                         null);
 
