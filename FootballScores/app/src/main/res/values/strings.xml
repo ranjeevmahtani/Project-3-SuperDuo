@@ -40,8 +40,5 @@
 
     <!-- API related Strings -->
     <string name="api_key" translatable="false"></string>
-    <string name="api_base_url" translatable="false">http://api.football-data.org/alpha/fixtures</string>
-    <string name="api_query_timeframe" translatable="false">timeFrame</string>
-    <string name="api_fixtures_JSON_object_name" translatable="false">fixtures</string>
 
 </resources>

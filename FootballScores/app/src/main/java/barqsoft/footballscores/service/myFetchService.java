@@ -53,8 +53,8 @@ public class myFetchService extends IntentService
     private void getData (String timeFrame)
     {
         //Creating fetch URL
-        final String BASE_URL = getString(R.string.api_base_url); //Base URL
-        final String QUERY_TIME_FRAME = getString(R.string.api_query_timeframe); //Time Frame parameter to determine days
+        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
+        final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
@@ -115,7 +115,7 @@ public class myFetchService extends IntentService
         try {
             if (JSON_data != null) {
                 //This bit is to check if the data contains any matches. If not, we call processJson on the dummy data
-                JSONArray matches = new JSONObject(JSON_data).getJSONArray(getString(R.string.api_fixtures_JSON_object_name));
+                JSONArray matches = new JSONObject(JSON_data).getJSONArray("fixtures");
                 if (matches.length() == 0) {
                     //if there is no data, call the function on dummy data
                     //this is expected behavior during the off season.
